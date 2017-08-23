@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.Title = "CustomerMaintenance";
+}
+
+<h2>CustomerMaintenance</h2>
+<div ng-controller="CustomersMaintenance">
+    <div class="row">
+        <div class="col-md-15">
+            <div class="col-md-10">
+                <form novalidate name="f1" ng-submit="SaveData(Customer)">
+                    <div style="color: red">{{message}}</div>
+                    <table class="table table-bordered table-condensed border-top-left">
+                        <tr>
+                            <td>Name :
+                            </td>
+                            <td>
+                                <input type="text" ng-model="Customer.Name" name="uName" ng-class="submitted?'ng-dirty':''" required autofocus />
+                                <span class="error" ng-show="(f1.uName.$dirty || submitted) && f1.uName.$error.required">FullName Required!</span>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Email :
+                            </td>
+                            <td>
+                                <input type="text" ng-model="Customer.Email" name="uEmail" ng-class="submitted?'ng-dirty':''" required autofocus />
+                                <span class="error" ng-show="(f1.uEmail.$dirty || submitted) && f1.uEmail.$error.email">Email Required!</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Address :
+                            </td>
+                            <td>
+                                <input type="text" ng-model="Customer.Address" name="uAddress" ng-class="submitted?'ng-dirty':''" required autofocus />
+                                <span class="error" ng-show="(f1.uAddress.$dirty || submitted) && f1.uAddress.$error.required">Address Required!</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Age :
+                            </td>
+                            <td>
+                                <input type="text" ng-model="Customer.Age" name="uAge" ng-class="submitted?'ng-dirty':''" required autofocus />
+                                <span class="error" ng-show="(f1.uAge.$dirty || submitted) && f1.uAge.$error.required">Age Required!</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Gender:
+                            </td>
+                            <td>
+                                <input type="radio" ng-model="Customer.Sex" name="uSex" value="Male" required />Male
+                                <input type="radio" ng-model="Customer.Sex" name="uSex" value="Female" required />Female
+                                <span class="error" ng-show="(f1.uSex.$dirty || submitted) && f1.uSex.$error.required">gender Required!</span>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="submit" value="{{submitText}}" />
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="col-md-10">
+                <table class="table table-bordered table-condensed border-top-left">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Age</th>
+                        <th>Sex</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="c in Customers">
+                        <td ng-show="false">{{c.ID}}                        
+                        </td>
+                        <td>{{c.Name}}                        
+                        </td>
+                        <td>{{c.Email}}
+                        </td>
+                        <td>{{c.Address}}
+                        </td>
+                        <td>{{c.Age}}
+                        </td>
+                        <td>{{c.Sex}}
+                        </td>
+                        <td>
+                            <input type="Submit" value="{{isEditingText}}" ng-click="Edit(c.ID)" />
+                            <input type="Submit" value="Delete" ng-click="Delete(c.ID)" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+ 
+  
+</div>
+@section scripts{
+    <script src="~/App/CustomerMaintenanceController.js"></script>
+    <script src="~/App/api.js"></script>
+}

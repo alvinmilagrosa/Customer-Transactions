@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<h2>Customer Transactions</h2>
+<style>
+    .typeahead-demo .custom-popup-wrapper {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        display: none;
+        background-color: #f9f9f9;
+    }
+
+        .typeahead-demo .custom-popup-wrapper > .message {
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+            color: #868686;
+        }
+
+        .typeahead-demo .custom-popup-wrapper > .dropdown-menu {
+            position: static;
+            float: none;
+            display: block;
+            min-width: 160px;
+            background-color: transparent;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+    body {
+        background: #3568AD;
+    }
+
+    #wrapper {
+        font: 20px Calibri;
+        width: 100px;
+        margin: 0 auto;
+    }
+</style>
+
+<div ng-controller="HomeController">
+    <div class="row">
+        <div class="col-md-15">
+            <div class="col-md-10">
+                <table class="table table-bordered table-condensed border-top-left">
+                    <tr>
+                        <th colspan="7">Search
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>Customer Name:
+                        </td>
+                        <td>
+                            <input type="text" ng-model="SearchParam.Name" name="uName"  required autofocus>
+
+                            @*<input ng-model="SearchParam.Name" name="cName" />*@
+
+                        </td>
+                        <td>Date From:
+                        </td>
+                        <td>
+                            <input ng-model="SearchParam.DateFrom" name="cDTFrom" datepicker />
+
+
+                        </td>
+                        <td>Date To:
+                        </td>
+                        <td>
+                            <input ng-model="SearchParam.DateTo" name="cDTTo" datepicker/>
+
+                        </td>
+                        <td>
+                            <input type="submit" value="Search" ng-click="Search(SearchParam)" />
+
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="table table-bordered table-condensed border-top-left">
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>Transaction</th>
+                        <th>Status</th>
+                        <th>Transaction Date</th>
+                    </tr>
+                    <tr ng-repeat="t in Transactions">
+
+                        <td>{{t.Name}}                        
+                        </td>
+                        <td>{{t.Transaction}}                        
+                        </td>
+                        <td>{{t.Status}}
+                        </td>
+                        <td>{{t.Date.slice(6,-2) | date:'dd-MM-yyyy'}}
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+    </div>
+</div>
+</div>
+@section scripts{
+    <script src="~/App/CustomersTransactions.js"></script>
+    <script src="~/App/api.js"></script>
+
+}

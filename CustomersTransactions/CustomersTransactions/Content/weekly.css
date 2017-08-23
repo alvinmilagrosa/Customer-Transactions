@@ -1,0 +1,13 @@
+﻿body {
+
+}
+ th {
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+        background-color: #D3D0C9;
+    }
+
+    td {
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+    }

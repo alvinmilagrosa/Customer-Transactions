@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "TransactionMaintenance";
+}
+<style>
+    .typeahead-demo .custom-popup-wrapper {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        display: none;
+        background-color: #f9f9f9;
+    }
+
+        .typeahead-demo .custom-popup-wrapper > .message {
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+            color: #868686;
+        }
+
+        .typeahead-demo .custom-popup-wrapper > .dropdown-menu {
+            position: static;
+            float: none;
+            display: block;
+            min-width: 160px;
+            background-color: transparent;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+        }
+</style>
+
+<h2>TransactionMaintenance</h2>
+<div ng-controller="TransactionMaintenance">
+
+    <div class="row">
+        <div class="col-md-15">
+            <div class="col-md-10">
+                <form novalidate name="f1" ng-submit="SaveData(Trans)">
+                    <div style="color: red">{{message}}</div>
+                    <table class="table table-bordered table-condensed border-top-left">
+                        <tr>
+                            <td>Customer :
+                            </td>
+                            <td>
+                                @*state for state in states*@
+                                 <div style="display: none;">{{Trans.CustomerID=selectedObject.ID}}</div>
+                                @*<div style="display: none;">{{I.Name}}</div>*@
+                      
+                                <input type="text" ng-model="selectedObject" name="uName" uib-typeahead="I as I.Name for I in Customers |filter: {'Name':$viewValue} | limitTo:8" ng-class="submitted?'ng-dirty':''"  ng-disabled="!isEditing"  ng-init="isEditing=true" required autofocus>
+                                <span class="error" ng-show="(f1.uName.$dirty || submitted) && f1.uName.$error.required">FullName Required!</span>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Transaction :
+                            </td>
+                            <td>
+                                <input type="text" ng-model="Trans.Transaction" name="uTransaction" ng-class="submitted?'ng-dirty':''" required autofocus />
+                                <span class="error" ng-show="(f1.uTransaction.$dirty || submitted) && f1.uTransaction.$error.required">Transaction Required!</span>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Status :
+                            </td>
+                            <td>
+                                <input type="text" ng-model="Trans.Status" name="uStatus" ng-class="submitted?'ng-dirty':''" required autofocus />
+                                <span class="error" ng-show="(f1.uStatus.$dirty || submitted) && f1.uStatus.$error.required">Status Required!</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="submit" value="{{submitText}}" />
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="col-md-10">
+                <table class="table table-bordered table-condensed border-top-left">
+                    <tr>
+                        <th>Name</th>
+                        <th>Transaction</th>
+                        <th>Status</th>
+                        <th>Transaction Date</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="t in Transactions">
+                        <td  ng-show="false">{{t.id}}                        
+                        </td>  
+                        <td>{{t.Name}}                        
+                        </td>
+                        <td>{{t.Transaction}}                        
+                        </td>
+                        <td>{{t.Status}}
+                        </td>
+                        <td>{{t.Date.slice(6,-2) | date:'dd-MM-yyyy'}}
+                        </td>
+
+                        <td>
+                            <input type="Submit" value="{{isEditingText}}" ng-click="Edit(t.id)" />
+                            <input type="Submit" value="Delete" ng-click="Delete(t.id)" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/App/TransactionMaintenanceController.js"></script>
+    <script src="~/App/api.js"></script>}

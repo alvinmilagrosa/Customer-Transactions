@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CustomerTransactionModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="CustomerTransactionModelStoreContainer">
+    <EntitySet Name="Customer" EntityType="CustomerTransactionModel.Store.Customer" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CustomerTransaction" EntityType="CustomerTransactionModel.Store.CustomerTransaction" store:Type="Tables" store:Schema="dbo" store:Name="CustomerTransaction">
+      <DefiningQuery>SELECT 
+      [CustomerTransaction].[ID] AS [ID], 
+      [CustomerTransaction].[CustomerID] AS [CustomerID], 
+      [CustomerTransaction].[Transaction] AS [Transaction], 
+      [CustomerTransaction].[Status] AS [Status], 
+      [CustomerTransaction].[Date] AS [Date]
+      FROM [dbo].[CustomerTransaction] AS [CustomerTransaction]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="200" />
+    <Property Name="Age" Type="int" Nullable="false" />
+    <Property Name="Sex" Type="nvarchar" Nullable="false" MaxLength="10" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'CustomerTransaction.dbo.CustomerTransaction' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="CustomerTransaction">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="CustomerID" />
+      <PropertyRef Name="Transaction" />
+      <PropertyRef Name="Status" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerID" Type="int" Nullable="false" />
+    <Property Name="Transaction" Type="nchar" Nullable="false" MaxLength="250" />
+    <Property Name="Status" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Date" Type="datetime" />
+  </EntityType>
+</Schema>
